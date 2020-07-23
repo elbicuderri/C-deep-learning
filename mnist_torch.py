@@ -63,7 +63,7 @@ class Net(nn.Module):
 
 model = Net()
 
-parameters_zero = list(model.parameters())
+# parameters_zero = list(model.parameters())
 
 # print("params_zero: ", parameters_zero)
 
@@ -108,26 +108,18 @@ var_list = []
 for epoch in range(0, 5):
     train(epoch)
     test()
-    mean = model.batchnorm.running_mean
-    variance = model.batchnorm.running_var
-    mean_list.append(mean)
-    var_list.append(variance)
+    mean = model.batchnorm.running_mean.clone()
+    variance = model.batchnorm.running_var.clone()
     print(mean)
     print(variance)
+    mean_list.append(mean)
+    var_list.append(variance)
 
 def save_weights(weights, name):
     weights = weights.detach().numpy()
     weights.tofile(f"weights_torch/{name}_torch.bin")
 
 parameters = list(model.parameters())
-
-# mean = model.batchnorm.running_mean
-#
-# variance = model.batchnorm.running_var
-#
-# print(mean)
-#
-# print(variance)
 
 name_list = ["kernel", "gamma", "beta", "W2", "b2", "W3", "b3"]
 
@@ -136,9 +128,6 @@ for w, n in zip(parameters, name_list):
 
 save_weights(mean_list[-1], "mean")
 save_weights(var_list[-1], "variance")
-
-# name_list = list(model.state_dict())
-# print(name_list)
 
 def calculate():
     for data, target in test_loader:
@@ -151,28 +140,3 @@ calculate()
 
 print("Finished!")
 
-# torch.save(model, "model/mnist_torch.pt")
-#
-# # 모델의 state_dict 출력
-# print("Model's state_dict:")
-# for param_tensor in model.state_dict():
-#     print(param_tensor, "\t", model.state_dict()[param_tensor].size())
-
-# 옵티마이저의 state_dict 출력
-#print("Optimizer's state_dict:")
-#for var_name in optimizer.state_dict():
-    #print(var_name, "\t", optimizer.state_dict()[var_name])
-
-# state_dict = model.state_dict()
-# for k in state_dict.keys():
-#     print(k,":", state_dict[k],"\n")
-
-# for data, target in test_loader:
-#     data, target = Variable(data), Variable(target)
-#     result = model(data)
-#     print(result.shape)
-#     # for i in range(20):
-#     #     print(result[i, :], target[i])
-#     result = result.detach().numpy()
-#     print(result.shape)
-#     result.tofile("weights_torch/result_torch.bin")
