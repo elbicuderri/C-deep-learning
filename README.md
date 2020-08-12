@@ -1,8 +1,4 @@
-# Deep-Learning-with-C
-
-convolution2D.c : code for convolution in 2D
-
-mnist_tensorflow.c : NHWC convolution
+# Deep-Learning-with-CUDA
 
 
 (28, 28, 1) -> conv -> (28, 28, 5) -> batchnorm -> maxpool -> (14, 14, 5) -> flatten -> (980, ) -> dense -> (120, ) -> dense -> (10,)
