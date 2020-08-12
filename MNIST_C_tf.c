@@ -4,7 +4,7 @@
 #include <limits.h>
 #include <float.h>
 
-void load_data(float *output, char *name, int size);
+void load_data(float *output, const char *name, int size);
 
 void print_image(float *image, int batch, int height, int width, int channel);
 
@@ -296,12 +296,12 @@ int main()
 
 }
 
-void load_data(float *output, char *name, int size) 
+void load_data(float *output, const char *name, int size) 
 {
 	FILE *pFile = fopen(name, "rb");
 
 	if (pFile == NULL) {
-		printf("cannot find file\n");
+		printf("cannot find %s\n", name);
 		exit(-1);
 	}
 
