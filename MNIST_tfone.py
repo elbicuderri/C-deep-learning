@@ -44,7 +44,7 @@ history = model.fit(X_train, y_train, batch_size=100,
                     validation_data=(X_test, y_test), epochs=3, verbose=2)
 
 def save_values(value, name):
-    value.tofile(f"value/{name}_tfone.bin")
+    value.tofile(f"data/{name}_tfone.bin")
 
 layer_name_list = ["conv", "batchnorm", "maxpool", "relu_maxpool",
                    "flatten", "dense1", "relu_dense1",
@@ -68,7 +68,7 @@ name_list = ["kernel",
              "W2", "b2"]
 
 def save_weights(weight, name):
-    weight.tofile(f"weight/{name}_tfone.bin")
+    weight.tofile(f"data/{name}_tfone.bin")
 
 for w, name in zip(weights, name_list):
     save_weights(w, name)
