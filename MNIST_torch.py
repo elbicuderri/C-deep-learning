@@ -53,7 +53,7 @@ class mnist_model(nn.Module):
             def save_value(value, name):
                 value_arr = value.cpu().data.numpy()
                 print(name, ": ", value_arr.shape)
-                value_arr.tofile(f"data/{name}_pytorch.bin")
+                value_arr.tofile(f"data/{name}_torch.bin")
 
             value_list = [conv, batchnorm, maxpool, relu_maxpool, flatten, dense1, relu_dense1, dense2, result]
             name_list = ["conv", "batchnorm", "maxpool", "relu_maxpool", "flatten", "dense1", "relu_dense1", "dense2", "result"]
@@ -128,7 +128,7 @@ calculate()
 def save_weights(weights, name):
     weights = weights.detach().numpy()
     print(name, ": ", weights.shape)
-    weights.tofile(f"data/{name}_pytorch.bin")
+    weights.tofile(f"data/{name}_torch.bin")
 
 print("=======================================================================")
 
