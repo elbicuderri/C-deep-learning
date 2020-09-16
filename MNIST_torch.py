@@ -8,6 +8,8 @@ from torchvision.transforms import ToTensor
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 
+print("Hi!")
+
 print(torch.cuda.is_available())
 print(torch.cuda.device_count())
 print(torch.cuda.get_device_name(0))
