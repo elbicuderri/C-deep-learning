@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 from torch.nn import Conv2d, BatchNorm2d, MaxPool2d, Linear
 import torch.nn.functional as F
@@ -7,6 +8,12 @@ from torchvision.transforms import ToTensor
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 
+print(torch.cuda.is_available())
+print(torch.cuda.device_count())
+print(torch.cuda.get_device_name(0))
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
 batch_size = 100
 transform = ToTensor()
 
@@ -38,13 +45,12 @@ class mnist_model(nn.Module):
         self.mode = 0
 
     def forward(self, x):
-        insize = x.size(0)
         x = x.float()
         conv = self.conv(x)
         batchnorm = self.batchnorm(conv)
         maxpool = self.maxpool(batchnorm)
         relu_maxpool = F.relu(maxpool)
-        flatten = relu_maxpool.view(insize, -1)
+        flatten = relu_maxpool.view(-1, 5 * 14 * 14)
         dense1 = self.dense1(flatten)
         relu_dense1 = F.relu(dense1)
         dense2 = self.dense2(relu_dense1)
@@ -53,7 +59,7 @@ class mnist_model(nn.Module):
             def save_value(value, name):
                 value_arr = value.cpu().data.numpy()
                 print(name, ": ", value_arr.shape)
-                value_arr.tofile(f"data/{name}_torch.bin")
+                value_arr.tofile(f"value/{name}_pytorch.bin")
 
             value_list = [conv, batchnorm, maxpool, relu_maxpool, flatten, dense1, relu_dense1, dense2, result]
             name_list = ["conv", "batchnorm", "maxpool", "relu_maxpool", "flatten", "dense1", "relu_dense1", "dense2", "result"]
@@ -64,13 +70,14 @@ class mnist_model(nn.Module):
 
 
 model = mnist_model()
+model.to(device)
 print(model)
 optimizer = Adam(model.parameters(), lr=0.001)
 
 def train(epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = Variable(data), Variable(target)
+        data, target = Variable(data).to(device), Variable(target).to(device)
         optimizer.zero_grad()
         output = model(data)
         loss = F.nll_loss(output, target)
@@ -86,7 +93,7 @@ def test():
     test_loss = 0
     correct = 0
     for data, target in valid_loader:
-        data, target = Variable(data), Variable(target)
+        data, target = Variable(data).to(device), Variable(target).to(device)
         output = model(data)
         # sum up batch loss
         test_loss += F.nll_loss(output, target, reduction='sum').item()
@@ -103,7 +110,7 @@ def test():
 mean_list = []
 var_list = []
 
-for epoch in range(0, 3):
+for epoch in range(0, 2):
     train(epoch)
     mean = model.batchnorm.running_mean.clone()
     # print(f"{epoch}th running_mean: ", mean)
@@ -118,7 +125,7 @@ print(var_list)
 
 def calculate():
     for data, target in test_loader:
-        data, target = Variable(data), Variable(target)
+        data, target = Variable(data).to(device), Variable(target).to(device)
     model.mode = 1
     model.eval()
     _ = model(data)
@@ -126,9 +133,9 @@ def calculate():
 calculate()
 
 def save_weights(weights, name):
-    weights = weights.detach().numpy()
+    weights = weights.cpu().detach().numpy()
     print(name, ": ", weights.shape)
-    weights.tofile(f"data/{name}_torch.bin")
+    weights.tofile(f"weight/{name}_pytorch.bin")
 
 print("=======================================================================")
 
