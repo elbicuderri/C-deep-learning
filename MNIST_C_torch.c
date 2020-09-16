@@ -59,7 +59,7 @@ int main()
 	const int dense2_units = 10;
 	const float epsilon = 0.001f;
 
-	char *data_file = "mnist_test_float.bin";
+	char *data_file = "data/mnist_test_float.bin";
 
 
 	float *data = (float*)malloc(data_size * sizeof(float));
@@ -69,55 +69,55 @@ int main()
 	//load_data(data, "mnist_test_float.bin", data_size);
 
 	float *kernel = (float*)malloc(K * C * kH * kW * sizeof(float));
-	load_data(kernel, "kernel_torch.bin", K * C * kH * kW);
+	load_data(kernel, "weight/kernel_pytorch.bin", K * C * kH * kW);
 
 	float *gamma = (float*)malloc(K * sizeof(float));
-	load_data(gamma, "gamma_torch.bin", K);
+	load_data(gamma, "weight/gamma_pytorch.bin", K);
 
 	float *beta = (float*)malloc(K * sizeof(float));;
-	load_data(beta, "beta_torch.bin", K);
+	load_data(beta, "weight/beta_pytorch.bin", K);
 
 	float *mean = (float*)malloc(K * sizeof(float));;
-	load_data(mean, "mean_torch.bin", K);
+	load_data(mean, "weight/mean_pytorch.bin", K);
 
 	float *variance = (float*)malloc(K * sizeof(float));;
-	load_data(variance, "variance_torch.bin", K);
+	load_data(variance, "weight/variance_pytorch.bin", K);
 
 	float *W1 = (float*)malloc(K * maxpool_H * maxpool_W * dense1_units * sizeof(float));;
-	load_data(W1, "W1_torch.bin", K * maxpool_H * maxpool_W * dense1_units);
+	load_data(W1, "weight/W1_pytorch.bin", K * maxpool_H * maxpool_W * dense1_units);
 
 	float *b1 = (float*)malloc(dense1_units * sizeof(float));;
-	load_data(b1, "b1_torch.bin", dense1_units);
+	load_data(b1, "weight/b1_pytorch.bin", dense1_units);
 
 	float *W2 = (float*)malloc(dense1_units * dense2_units * sizeof(float));;
-	load_data(W2, "W2_torch.bin", dense1_units * dense2_units);
+	load_data(W2, "weight/W2_pytorch.bin", dense1_units * dense2_units);
 
 	float *b2 = (float*)malloc(dense2_units * sizeof(float));;
-	load_data(b2, "b2_torch.bin", dense2_units);
+	load_data(b2, "weight/b2_pytorch.bin", dense2_units);
 
 	//====================================================================
 	// original file to compare
 
 	float *conv_fusion_origin = (float*)malloc(N * K * P * Q * sizeof(float));
-	load_data(conv_fusion_origin, "batchnorm_torch.bin", N * K * H * W);
+	load_data(conv_fusion_origin, "value/batchnorm_pytorch.bin", N * K * H * W);
 
 	float *maxpool_origin = (float*)malloc(N * K * maxpool_H * maxpool_W * sizeof(float));
-	load_data(maxpool_origin, "maxpool_torch.bin", N * K * maxpool_H * maxpool_W);
+	load_data(maxpool_origin, "value/maxpool_pytorch.bin", N * K * maxpool_H * maxpool_W);
 
 	float *relu_maxpool_origin = (float*)malloc(N * K * maxpool_H * maxpool_W * sizeof(float));
-	load_data(relu_maxpool_origin, "relu_maxpool_torch.bin", N * K * maxpool_H * maxpool_W);
+	load_data(relu_maxpool_origin, "value/relu_maxpool_pytorch.bin", N * K * maxpool_H * maxpool_W);
 
 	float *dense1_origin = (float*)malloc(N * dense1_units * sizeof(float));;
-	load_data(dense1_origin, "dense1_torch.bin", N * dense1_units);
+	load_data(dense1_origin, "value/dense1_pytorch.bin", N * dense1_units);
 
 	float *relu_dense1_origin = (float*)malloc(N * dense1_units * sizeof(float));
-	load_data(relu_dense1_origin, "relu_dense1_torch.bin", N * dense1_units);
+	load_data(relu_dense1_origin, "value/relu_dense1_pytorch.bin", N * dense1_units);
 
 	float *dense2_origin = (float*)malloc(N * dense2_units * sizeof(float));
-	load_data(dense2_origin, "dense2_torch.bin", N * dense2_units);
+	load_data(dense2_origin, "value/dense2_pytorch.bin", N * dense2_units);
 
 	float *result_origin = (float*)malloc(N * dense2_units * sizeof(float));
-	load_data(result_origin, "result_torch.bin", N * dense2_units);
+	load_data(result_origin, "value/result_pytorch.bin", N * dense2_units);
 
 	//====================================================================
 
