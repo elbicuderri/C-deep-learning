@@ -4,7 +4,7 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST
 from torchvision import transforms
-from torch.nn import Conv2d, MaxPool2d, Linear, BatchNorm2d
+from torch.nn import Conv2d, MaxPool2d, Linear, BatchNorm2d, ReLU, Softmax
 from torch.optim import Adam
 import pytorch_lightning as pl
 
@@ -14,21 +14,25 @@ class MNISTModel(pl.LightningModule):
     def __init__(self):
         super(MNISTModel, self).__init__()
         self.conv = Conv2d(in_channels=1, out_channels=5, kernel_size=(5, 5), padding=(2, 2), bias=True)
+        ## BatchNorm2d
         self.maxpool = MaxPool2d(kernel_size=(2, 2), stride=(2, 2))
         self.dense1 = Linear(5 * 14 * 14, 120)
         self.dense2 = Linear(120, 10)
+        self.relu = ReLU()
+        self.softmax = Softmax(dim=1)
 
     def forward(self, x):
         insize = x.size(0)
         x = x.float()
         conv = self.conv(x)
+        ## BatchNorm2d
         maxpool = self.maxpool(conv)
-        relu_maxpool = F.relu(maxpool)
+        relu_maxpool = self.relu(maxpool)
         flatten = relu_maxpool.view(insize, -1)
         dense1 = self.dense1(flatten)
-        relu_dense1 = F.relu(dense1)
+        relu_dense1 = self.relu(dense1)
         dense2 = self.dense2(relu_dense1)
-        result = F.softmax(dense2, dim=1)
+        result = self.softmax(dense2)
         return result
 
     def configure_optimizers(self):
@@ -77,11 +81,12 @@ class MNISTModel(pl.LightningModule):
         # OPTIONAL
         return DataLoader(MNIST(os.getcwd(), train=False, download=True, transform=transforms.ToTensor()), batch_size=32)
 
+
 mnist_model = MNISTModel()
 print(mnist_model)
 
 # most basic trainer, uses good defaults (1 gpu)
-trainer = pl.Trainer(gpus=1, max_epochs=3)
+trainer = pl.Trainer(gpus=1, max_epochs=1)
 trainer.fit(mnist_model)
 
 print('finished')
