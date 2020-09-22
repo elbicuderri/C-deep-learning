@@ -14,7 +14,7 @@ class MNISTModel(pl.LightningModule):
     def __init__(self):
         super(MNISTModel, self).__init__()
         self.conv = Conv2d(in_channels=1, out_channels=5, kernel_size=(5, 5), padding=(2, 2), bias=True)
-        self.maxpool = MaxPool2d(kernel_size=2, stride=(2, 2))
+        self.maxpool = MaxPool2d(kernel_size=(2, 2), stride=(2, 2))
         self.dense1 = Linear(5 * 14 * 14, 120)
         self.dense2 = Linear(120, 10)
 
