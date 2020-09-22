@@ -59,8 +59,7 @@ int main()
 	const int dense2_units = 10;
 	const float epsilon = 0.001f;
 
-	char *data_file = "data/mnist_test_float.bin";
-
+	const char *data_file = "data/mnist_test_float.bin";
 
 	float *data = (float*)malloc(data_size * sizeof(float));
 	load_data(data, data_file, data_size);
@@ -163,7 +162,7 @@ int main()
 		printf("\n");
 	}
 
-	printf("===============================================================================================================================================================================================================================\n\n");
+	printf("======================================================================================================================\n\n");
 
 	printf("after softmax : \n\n\n");
 
