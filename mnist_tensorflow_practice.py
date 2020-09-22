@@ -19,6 +19,7 @@ print("data ready")
 def mnist_model():
     inputs = Input(shape=(28, 28, 1))
     conv = Conv2D(filters=5, kernel_size=(5, 5), strides=(1, 1), padding="same", use_bias=True, name="conv")(inputs)
+    ## BatchNormalization
     maxpool = MaxPooling2D(pool_size=(2, 2), name="maxpool")(conv)
     relu_maxpool = Activation('relu',name="relu_maxpool")(maxpool)
     flatten = Flatten(name="flatten")(relu_maxpool)
