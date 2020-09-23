@@ -86,7 +86,7 @@ mnist_model = MNISTModel()
 print(mnist_model)
 
 # most basic trainer, uses good defaults (1 gpu)
-trainer = pl.Trainer(gpus=1, max_epochs=1)
+trainer = pl.Trainer(gpus=1, max_epochs=3)
 trainer.fit(mnist_model)
 
 print('finished')
