@@ -833,6 +833,7 @@ int main()
 	cudnnDestroyActivationDescriptor(activationDesc_dense1);
 
 	cudnnDestroy(HANDLE);
+	
 
 	// if not zero, cudaFree
 	if (d_image)
