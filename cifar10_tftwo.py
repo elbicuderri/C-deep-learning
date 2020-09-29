@@ -17,7 +17,7 @@ y_test = to_categorical(y_test)
 
 print("data ready")
 
-def mnist_model():
+def cifar10_model():
     inputs = Input(shape=(32, 32, 3))
     conv1 = Conv2D(filters=20, kernel_size=(5, 5), strides=(1, 1), padding="same", use_bias=False)(inputs)
     batchnorm1 = BatchNormalization(epsilon=0.001)(conv1)
@@ -46,13 +46,13 @@ def mnist_model():
 
     return model
 
-model = mnist_model()
+model = cifar10_model()
 
 model.summary()
 
 optimizer = Adam(lr=0.001)
 
-checkpoint_path = 'my_checkpoint.ckpt'
+checkpoint_path = 'cifar10_checkpoint.ckpt'
 
 checkpoint = ModelCheckpoint(checkpoint_path,
                              monitor='val_loss',
@@ -61,7 +61,7 @@ checkpoint = ModelCheckpoint(checkpoint_path,
                              verbose=1)
 
 reduce_lr = ReduceLROnPlateau(monitor='val_loss',
-                              factor=0.5,
+                              factor=0.8,
                               patience=5,
                               verbose=1)
 
