@@ -1,4 +1,4 @@
-# Deep-Learning-with-CUDA
+# Deep-Learning-with-C-cuDNN-CUDA-IMPLEMENTATION
 
 
 (28, 28, 1) -> conv -> (28, 28, 5) -> batchnorm -> maxpool -> (14, 14, 5) -> flatten -> (980, ) -> dense -> (120, ) -> dense -> (10,)
