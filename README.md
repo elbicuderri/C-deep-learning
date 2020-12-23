@@ -92,7 +92,8 @@ void maxpooling(float *output, float *input,
 
 ```cpp
 //cpp code for maxpooling2d
-void maxpooling(float *output, float *input, int batch, int channel, int input_height, int input_width, int kernel_height, int kernel_width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width)
+void maxpooling(float *output, float *input, int batch, int channel, int input_height, int input_width,
+int kernel_height, int kernel_width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width)
 {
 	int N = batch;
 	int C = channel;
