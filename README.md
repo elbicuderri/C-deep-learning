@@ -1,6 +1,7 @@
 # Deep-Learning-with-C-cuDNN-CUDA-IMPLEMENTATION
 
 ```cuda
+//CUDA kernel sample code for maxpooling2d
 __global__ void maxpooling_kernel(float *output, float *input,
 	int batch, int channel, int height, int width,
 	int kernel_height, int kernel_width, int pad_height, int pad_width, int stride_height, int stride_width, int total_size)
