@@ -90,6 +90,55 @@ void maxpooling(float *output, float *input,
 }
 ```
 
+```cpp
+//cpp code for maxpooling2d
+void maxpooling(float *output, float *input, int batch, int channel, int input_height, int input_width, int kernel_height, int kernel_width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width)
+{
+	int N = batch;
+	int C = channel;
+	int H = input_height;
+	int W = input_width;
+	int kH = kernel_height;
+	int kW = kernel_width;
+	int pT = pad_top;
+	int pB = pad_bottom;
+	int pL = pad_left;
+	int pR = pad_right;
+	int sH = stride_height;
+	int sW = stride_width;
+	int P = ((input_height + pad_top + pad_bottom - kernel_height) / stride_height) + 1;
+	int Q = ((input_width + pad_left + pad_right - kernel_width) / stride_width) + 1;
+
+	//maxpooling
+	for (int n = 0; n < N; n++) {
+		for (int c = 0; c < C; c++) {
+			for (int p = 0; p < P; p++) {
+				for (int q = 0; q < Q; q++) {
+					float max = -FLT_MAX;
+					for (int kh = 0; kh < kH; kh++) {
+						int h_idx = p * sH + kh - pT;
+						if (h_idx >= 0 && h_idx < H) {
+							for (int kw = 0; kw < kW; kw++) {
+								int w_idx = q * sW + kw - pL;
+								if (w_idx >= 0 && w_idx < W) {
+									int index = n * C * H * W + c * H * W + h_idx * W + w_idx;
+									if (input[index] > max) {
+										max = input[index];
+									}
+								}
+							}
+						}
+					}
+					int output_index = n * C * P * Q + c * P * Q + p * Q + q;
+					output[output_index] = max;
+				}
+			}
+		}
+	}
+
+}
+```
+
 
 (28, 28, 1) -> conv -> (28, 28, 5) -> batchnorm -> maxpool -> (14, 14, 5) -> flatten -> (980, ) -> dense -> (120, ) -> dense -> (10,)
 
