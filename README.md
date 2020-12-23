@@ -120,4 +120,18 @@ As a result,
 2. You can run C, CUDNN, CUDA code with using weight files and compare them with original value files.
 
 
+```bash
+$ export PATH=/usr/local/cuda-10.0/bin:$PATH
+$ export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64:/usr/local/TensorRT-7.0.0.11/lib:$LD_LIBRARY_PATH
+```
 
+```bash
+$ nvcc main.cpp -o main
+$ ./main
+```
+
+```bash
+$ nvcc main.cpp -c
+$ nvcc main.o -o main -L/usr/local/cuda-10.0/lib64 -lcudnn -I/usr/local/cuda-10.0/include
+$ ./main
+```
