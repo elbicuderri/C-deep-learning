@@ -139,6 +139,61 @@ void maxpooling(float *output, float *input, int batch, int channel, int input_h
 }
 ```
 
+```cpp
+//cuDNN code for maxpooling2d
+
+cudnnPoolingDescriptor_t poolingDesc;
+
+cudnnPoolingMode_t pooling_mode = CUDNN_POOLING_MAX;
+
+cudnnNanPropagation_t maxpoolingNanOpt = CUDNN_PROPAGATE_NAN;
+
+cudnnCreatePoolingDescriptor(&poolingDesc);
+
+cudnnSetPooling2dDescriptor(
+	poolingDesc,
+	pooling_mode,
+	maxpoolingNanOpt,
+	maxpool_kH,
+	maxpool_kW,
+	maxpool_pH,
+	maxpool_pW,
+	maxpool_sH,
+	maxpool_sW);
+
+cudnnTensorDescriptor_t maxpoolDesc;
+
+cudnnCreateTensorDescriptor(&maxpoolDesc);
+
+cudnnSetTensor4dDescriptor(
+	maxpoolDesc,
+	dataformat,
+	datatype,
+	N,
+	K,
+	maxpool_H,
+	maxpool_W);
+
+const float alpha_pool = 1.0f;
+const float beta_pool = 0.0f;
+
+void *d_maxpool;
+cudaMalloc((void **)&d_maxpool, N * K * maxpool_H * maxpool_W * sizeof(float)); // cuda allocate 
+
+cudnnPoolingForward(
+	HANDLE,
+	poolingDesc,
+	&alpha_pool,
+	conv_imageDesc,
+	d_conv_fusion,
+	&beta_pool,
+	maxpoolDesc,
+	d_maxpool);
+
+float* h_maxpool = (float*)malloc(N * K * maxpool_H * maxpool_W * sizeof(float));
+cudaMemcpy(h_maxpool, d_maxpool, N * K * maxpool_H * maxpool_W * sizeof(float), cudaMemcpyDeviceToHost);
+```
+
 
 (28, 28, 1) -> conv -> (28, 28, 5) -> batchnorm -> maxpool -> (14, 14, 5) -> flatten -> (980, ) -> dense -> (120, ) -> dense -> (10,)
 
