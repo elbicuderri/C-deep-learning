@@ -137,6 +137,7 @@ $ ./main
 ```
 
 ```makefile
+# makefile
 NVCC = nvcc
 TARGET = mnist_cudnn
 OBJECTS = mnist_cudnn.o
