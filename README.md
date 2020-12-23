@@ -84,7 +84,8 @@ void maxpooling(float *output, float *input,
 	int TOTAL_SIZE = N * C * P * Q;
 	int NUMBER_OF_BLOCKS = (TOTAL_SIZE + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
 
-	maxpooling_kernel << < NUMBER_OF_BLOCKS, THREADS_PER_BLOCK >> > (output, input, N, C, H, W, kH, kW, pH, pW, sH, sW, TOTAL_SIZE);
+	maxpooling_kernel << < NUMBER_OF_BLOCKS, THREADS_PER_BLOCK >> > (output, input, 
+	N, C, H, W, kH, kW, pH, pW, sH, sW, TOTAL_SIZE);
 
 }
 ```
