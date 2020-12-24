@@ -1,5 +1,7 @@
 # Deep-Learning-with-C-cuDNN-CUDA-IMPLEMENTATION
 
+[more CUDA kernels](https://github.com/BVLC/caffe/tree/master/src/caffe/layers)
+
 ```cuda
 //CUDA kernel sample code for maxpooling2d
 __global__ void maxpooling_kernel(float *output, float *input,
