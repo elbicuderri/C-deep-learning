@@ -4,7 +4,8 @@
 //CUDA kernel sample code for maxpooling2d
 __global__ void maxpooling_kernel(float *output, float *input,
 	int batch, int channel, int height, int width,
-	int kernel_height, int kernel_width, int pad_height, int pad_width, int stride_height, int stride_width, int total_size)
+	int kernel_height, int kernel_width, int pad_height, int pad_width, 
+	int stride_height, int stride_width, int total_size)
 {
 	int N = batch;
 	int C = channel;
@@ -64,7 +65,8 @@ __global__ void maxpooling_kernel(float *output, float *input,
 
 void maxpooling(float *output, float *input,
 	int batch, int channel, int height, int width,
-	int kernel_height, int kernel_width, int pad_height, int pad_width, int stride_height, int stride_width)
+	int kernel_height, int kernel_width, int pad_height, int pad_width, 
+	int stride_height, int stride_width)
 {
 	int N = batch;
 	int C = channel;
@@ -92,8 +94,11 @@ void maxpooling(float *output, float *input,
 
 ```cpp
 //cpp code for maxpooling2d
-void maxpooling(float *output, float *input, int batch, int channel, int input_height, int input_width,
-int kernel_height, int kernel_width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width)
+void maxpooling(float *output, float *input, int batch, int channel, 
+int input_height, int input_width,
+int kernel_height, int kernel_width, 
+int pad_top, int pad_bottom, int pad_left, int pad_right, 
+int stride_height, int stride_width)
 {
 	int N = batch;
 	int C = channel;
