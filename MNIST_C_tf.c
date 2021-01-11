@@ -12,15 +12,18 @@ void split_image_label(float *image, float *label, float *input, int total_numbe
 
 void normalization(float *output, float *input, int size);
 
-void convolution(float*output, float*image, float*kernel, int batch, int in_channel, int out_channel, int image_Height, int image_Width, int kernel_Height, int kernel_Width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width);
+void convolution(float*output, float*image, float*kernel, int batch, int in_channel, int out_channel, int image_Height, int image_Width,
+		 int kernel_Height, int kernel_Width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width);
 
-void maxpooling(float*output, float*input, int batch, int channel, int input_height, int input_width, int kernel_height, int kernel_width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width);
+void maxpooling(float*output, float*input, int batch, int channel, int input_height, int input_width,
+		int kernel_height, int kernel_width, int pad_top, int pad_bottom, int pad_left, int pad_right, int stride_height, int stride_width);
 
 void dense(float *output, float *input, float *weight, float *bias, int batch, int input_height, int input_width, int channel, int output_dim);
 
 void relu(float*output, float*input, int batch, int dim);
 
-void batchnormalization(float *output, float *input, float *gamma, float *beta, float *mean, float *variance, float epsilon, int batch, int input_height, int input_width, int channel);
+void batchnormalization(float *output, float *input, float *gamma, float *beta, float *mean, float *variance, float epsilon,
+			int batch, int input_height, int input_width, int channel);
 
 float exponential_sum(float *input, int length, int start);
 
