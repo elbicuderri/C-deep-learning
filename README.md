@@ -1,5 +1,7 @@
 # Deep-Learning-with-C-cuDNN-CUDA-IMPLEMENTATION
 
+[cuda-neural-network-implementation](https://luniak.io/cuda-neural-network-implementation-part-1/#programming-model)
+
 ```cuda
 //CUDA kernel sample code for maxpooling2d
 __global__ void maxpooling_kernel(float *output, float *input,
