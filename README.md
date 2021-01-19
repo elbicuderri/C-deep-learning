@@ -1,5 +1,9 @@
 # Deep-Learning-with-C-cuDNN-CUDA-IMPLEMENTATION
 
+**Setup Visual Studio Code for Multi-File C++ Projects**
+[Link](https://dev.to/talhabalaj/setup-visual-studio-code-for-multi-file-c-projects-1jpi#setup3)
+---
+
 [CUDA programming example](https://cuda.readthedocs.io/ko/latest/)
 
 [cuda-neural-network-implementation](https://luniak.io/cuda-neural-network-implementation-part-1/#programming-model)
