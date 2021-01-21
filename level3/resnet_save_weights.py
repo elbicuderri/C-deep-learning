@@ -73,27 +73,27 @@ summary(model, input_size=(1, 28, 28))
 
 model.load_state_dict(torch.load("mnist_resnet.pt"))
 
-model.conv0._modules['1'].running_mean.cpu().data.numpy().tofile("weight/conv0.bn.mean_pytorch_resnet.bin")
-model.conv0._modules['1'].running_var.cpu().data.numpy().tofile("weight/conv0.bn.var_pytorch_resnet.bin")
+model.conv0._modules['1'].running_mean.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\conv0.bn.mean_pytorch_resnet.bin")
+model.conv0._modules['1'].running_var.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\conv0.bn.var_pytorch_resnet.bin")
 
-model.conv1._modules['1'].running_mean.cpu().data.numpy().tofile("weight/conv1.bn.mean_pytorch_resnet.bin")
-model.conv1._modules['1'].running_var.cpu().data.numpy().tofile("weight/conv1.bn.var_pytorch_resnet.bin")
+model.conv1._modules['1'].running_mean.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\conv1.bn.mean_pytorch_resnet.bin")
+model.conv1._modules['1'].running_var.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\conv1.bn.var_pytorch_resnet.bin")
 
-model.block1._modules['1'].running_mean.cpu().data.numpy().tofile("weight/block1.bn1.mean_pytorch_resnet.bin")
-model.block1._modules['1'].running_var.cpu().data.numpy().tofile("weight/block1.bn1.var_pytorch_resnet.bin")
+model.block1._modules['1'].running_mean.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block1.bn1.mean_pytorch_resnet.bin")
+model.block1._modules['1'].running_var.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block1.bn1.var_pytorch_resnet.bin")
 
-model.block1._modules['4'].running_mean.cpu().data.numpy().tofile("weight/block1.bn2.mean_pytorch_resnet.bin")
-model.block1._modules['4'].running_var.cpu().data.numpy().tofile("weight/block1.bn2.var_pytorch_resnet.bin")
+model.block1._modules['4'].running_mean.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block1.bn2.mean_pytorch_resnet.bin")
+model.block1._modules['4'].running_var.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block1.bn2.var_pytorch_resnet.bin")
 
-model.block2._modules['1'].running_mean.cpu().data.numpy().tofile("weight/block2.bn1.mean_pytorch_resnet.bin")
-model.block2._modules['1'].running_var.cpu().data.numpy().tofile("weight/block2.bn1.var_pytorch_resnet.bin")
+model.block2._modules['1'].running_mean.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block2.bn1.mean_pytorch_resnet.bin")
+model.block2._modules['1'].running_var.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block2.bn1.var_pytorch_resnet.bin")
 
-model.block2._modules['4'].running_mean.cpu().data.numpy().tofile("weight/block2.bn2.mean_pytorch_resnet.bin")
-model.block2._modules['4'].running_var.cpu().data.numpy().tofile("weight/block2.bn2.var_pytorch_resnet.bin")
+model.block2._modules['4'].running_mean.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block2.bn2.mean_pytorch_resnet.bin")
+model.block2._modules['4'].running_var.cpu().detach().numpy().tofile("C:\\Users\\muger\\Desktop\\weights\\block2.bn2.var_pytorch_resnet.bin")
 
 for name, weight in model.named_parameters():
-    weight = weight.cpu().data.numpy()
+    weight = weight.cpu().detach().numpy()
     print(name, weight.shape)
-    weight.tofile(f"weight/{name}_pytorch_resnet.bin") 
+    weight.tofile(f"C:\\Users\\muger\\Desktop\\weights\\{name}_pytorch_resnet.bin") 
 
 print("finished")

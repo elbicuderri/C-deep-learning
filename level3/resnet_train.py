@@ -67,12 +67,12 @@ class MnistResNet(nn.Module):
         logit = F.log_softmax(last_dense, dim=1)
         
         if self.mode == 1:
-            last_dense_data = last_dense.cpu().data.numpy()
+            last_dense_data = last_dense.cpu().detach().numpy()
             print("last_dense'shape: ", last_dense_data.shape)
-            logit_data = logit.cpu().data.numpy()
+            logit_data = logit.cpu().detach().numpy()
             print("logit'shape: ", logit_data.shape)
-            last_dense_data.tofile("value/last_dense_pytorch_resnet.bin")
-            logit_data.tofile("value/logit_pytorch_resnet.bin")
+            last_dense_data.tofile("C:\\Users\\muger\\Desktop\\value\\last_dense_pytorch_resnet.bin")
+            logit_data.tofile("C:\\Users\\muger\\Desktop\\value\\logit_pytorch_resnet.bin")
             
         return logit
     
@@ -124,10 +124,10 @@ torch.save(model.state_dict(), 'mnist_resnet.pt')
 print("model saved")
 print("=======================================================================")
 
-for name, weights in model.named_parameters():
-    weights = weights.cpu().data.numpy()
-    print(name, ": ", weights.shape)
-    weights.tofile(f"weight/{name}_pytorch_resnet.bin")
+# for name, weights in model.named_parameters():
+#     weights = weights.cpu().detach().numpy()
+#     print(name, ": ", weights.shape)
+#     weights.tofile(f"C:\\Users\\muger\\Desktop\\weights\\{name}_pytorch_resnet.bin")
     
 print("=======================================================================")
 

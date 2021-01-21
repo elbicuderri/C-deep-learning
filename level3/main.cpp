@@ -19,7 +19,7 @@ std::vector<float> image_normalization(const float* input, int& batch, int& imag
 int main()
 {
 	int image_size = 28 * 28;
-	int N = 10;
+	int N = 2;
 	const int data_size = N * (image_size + 1);
 	const int C = 1;
 	const int H = 28;
@@ -31,10 +31,10 @@ int main()
 	const int classes = 10;
 	const float epsilon = 0.00001f;
 
-	std::string root = "C:\\GitHub\\PyTorch_Study\\soynet_lecture\\mnist_resnet\\weight\\";
+	std::string root = "C:\\Users\\muger\\Desktop\\weights\\";
 
 	float* data = new float[data_size];
-	const char* data_file = "C:\\dev\\mnist_cnn\\mnist_cnn\\data/mnist_test_float.bin";
+	const char* data_file = "C:\\Users\\muger\\Desktop\\data\\mnist_test_float.bin";
 
 	load_data(data, data_file, data_size);
 
@@ -117,8 +117,8 @@ int main()
 
 	//======================================================================================================================
 
-	std::vector<float> last_dense_origin = ReadData<float>("C:\\GitHub\\PyTorch_Study\\soynet_lecture\\mnist_resnet\\value\\last_dense_pytorch_resnet.bin");
-	std::vector<float> logit_origin = ReadData<float>("C:\\GitHub\\PyTorch_Study\\soynet_lecture\\mnist_resnet\\value\\logit_pytorch_resnet.bin");
+	std::vector<float> last_dense_origin = ReadData<float>("C:\\Users\\muger\\Desktop\\value\\last_dense_pytorch_resnet.bin");
+	std::vector<float> logit_origin = ReadData<float>("C:\\Users\\muger\\Desktop\\value\\logit_pytorch_resnet.bin");
 
 	//======================================================================================================================
 
