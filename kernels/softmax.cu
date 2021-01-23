@@ -3,6 +3,7 @@ __global__ void softmax_kernel(float *output, float *input, float *exp_sum, int 
 	int C = channel;
 
 	int tid = blockIdx.x * blockDim.x + threadIdx.x;
+
 	if (tid >= total_size)
 		return;
 
@@ -12,7 +13,6 @@ __global__ void softmax_kernel(float *output, float *input, float *exp_sum, int 
 	float exp_sum_n = exp_sum[n_idx];
 
 	output[tid] = exp_element / exp_sum_n;
-
 
 }
 

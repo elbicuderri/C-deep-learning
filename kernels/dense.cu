@@ -2,6 +2,7 @@ __global__ void dense_kernel(float *output, float *input, float *weight, float *
 {
 
 	int tid = blockIdx.x * blockDim.x + threadIdx.x;
+	
 	if (tid >= total_size)
 		return;
 
