@@ -3,6 +3,22 @@ import struct
 from tensorflow.keras.models import load_model
 import numpy as np
 
+"""
+Point!!!!
+
+FC직전에 flatten을 한 경우 TF dense weight shape (kH, kW, C, K)
+
+Torch dense weight shape (K, C, kH, kW)
+
+따라서 이 dense weight shape를 바꾸고 싶은 경우에는
+
+w = w.transpose(3, 2, 0, 1) 를 해주면 된다.
+
+보통의 dense layer에서는
+
+ w = w.transpose(1, 0) 만 하면 된다.
+
+"""
 model_path = 'model/mnist_model.h5'
 # weights_path = 'weights/mnist_float32.wts'
 
