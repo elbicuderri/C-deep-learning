@@ -24,6 +24,8 @@ void dense(float *output, float *input, float *weight, float *bias, int batch, i
 
 void relu(float*output, float*input, int batch, int dim);
 
+void relu_v2(float* input, int size);
+
 float exponential_sum(float *input, int length, int start);
 
 void softmax(float *output, float *input, int batch, int dim);
@@ -133,16 +135,23 @@ int main()
 	maxpooling(maxpool, conv_fusion, N, K, P, Q, maxpool_kH, maxpool_kW, maxpool_pH, maxpool_pH, maxpool_pW, maxpool_pW, maxpool_sH, maxpool_sW);
 
 	float *relu_maxpool = (float*)malloc(N * K * maxpool_H * maxpool_W * sizeof(float));
-	relu(relu_maxpool, maxpool, N, K * maxpool_H * maxpool_W);
+	// relu(relu_maxpool, maxpool, N, K * maxpool_H * maxpool_W);
+
+	relu_v2(maxpool, N * K * maxpool_H * maxpool_W);
 
 	float *dense1 = (float*)malloc(N * dense1_units * sizeof(float));
-	dense(dense1, relu_maxpool, W1, b1, N, K, dense1_units, maxpool_H, maxpool_W);
+	dense(dense1, maxpool, W1, b1, N, K, dense1_units, maxpool_H, maxpool_W);
 
 	float *relu_dense1 = (float*)malloc(N * dense1_units * sizeof(float));
-	relu(relu_dense1, dense1, N, dense1_units);
+	// relu(relu_dense1, dense1, N, dense1_units);
+
+	relu_v2(dense1, N * dense1_units);
 
 	float *dense2 = (float*)malloc(N * dense1_units * dense2_units * sizeof(float));
-	dense(dense2, relu_dense1, W2, b2, N, dense1_units, dense2_units, 1, 1);
+	// dense(dense2, relu_dense1, W2, b2, N, dense1_units, dense2_units, 1, 1);
+
+	dense(dense2, dense1, W2, b2, N, dense1_units, dense2_units, 1, 1);
+
 
 	float* result = (float*)malloc(N * dense2_units * sizeof(float));
 	softmax_v2(result, dense2, N, dense2_units);
@@ -441,6 +450,15 @@ void relu(float* output, float* input, int batch, int dim)
 		}
 	}
 
+}
+
+void relu_v2(float* input, int size)
+{
+	for (int i = 0; i < size; i++){
+		if (input[i] < 0.0f) {
+			input[i] = 0.0f;
+		}
+	}
 }
 
 
