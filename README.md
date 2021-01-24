@@ -250,10 +250,3 @@ clean :
 	rm -rf $(OBJECTS) $(TARGET)
 ```
 
-MNIST_CUDNN_window : In Visual Studio, CUDNN style CNN code.
-
-MNIST_CUDA_window : In Visual Studio, CUDA style CNN code.
-
-MNIST_CUDA_ubuntu : In ubuntu, make.
-
-
