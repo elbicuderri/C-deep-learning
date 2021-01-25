@@ -1,5 +1,9 @@
 # Deep-Learning-with-C-cuDNN-CUDA-IMPLEMENTATION
 
+## Convolution Backpropragation Implementation
+
+[Convolutional Neural Networks: Step by Step](https://datascience-enthusiast.com/DL/Convolution_model_Step_by_Stepv2.html)
+
 **Setup Visual Studio Code for Multi-File C++ Projects**
 <br>
 ➡[Link](https://dev.to/talhabalaj/setup-visual-studio-code-for-multi-file-c-projects-1jpi#setup3)
@@ -245,11 +249,4 @@ $(OBJECTS) : $(OBJECTS_CU)
 clean :
 	rm -rf $(OBJECTS) $(TARGET)
 ```
-
-MNIST_CUDNN_window : In Visual Studio, CUDNN style CNN code.
-
-MNIST_CUDA_window : In Visual Studio, CUDA style CNN code.
-
-MNIST_CUDA_ubuntu : In ubuntu, make.
-
 
