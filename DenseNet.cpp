@@ -2,8 +2,8 @@
 #include <fstream>
 #include <vector>
 
-std::vector<float> Dense(std::vector<float> Input,
-	std::vector<float> Weight, std::vector<float> Bias)
+std::vector<float> Dense(const std::vector<float>& Input,
+	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
 	int C = (int)Weight.size() / K;
@@ -31,8 +31,8 @@ std::vector<float> Dense(std::vector<float> Input,
 }
 
 
-std::vector<float> ReluDense(std::vector<float> Input,
-	std::vector<float> Weight, std::vector<float> Bias)
+std::vector<float> ReluDense(const std::vector<float>& Input,
+	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
 	int C = (int)Weight.size() / K;
@@ -62,8 +62,8 @@ std::vector<float> ReluDense(std::vector<float> Input,
 }
 
 
-std::vector<float> Dense_TF(std::vector<float> Input,
-	std::vector<float> Weight, std::vector<float> Bias)
+std::vector<float> Dense_TF(const std::vector<float>& Input,
+	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
 	int C = (int)Weight.size() / K;
@@ -76,7 +76,7 @@ std::vector<float> Dense_TF(std::vector<float> Input,
 			float sum = (float)0.0f;
 			for (int c = 0; c < C; c++) {
 				int Input_index = n * C + c;
-				int Weight_index = c * K + k;  // Torch¿Í ÀÌ ºÎºÐÀÇ index¸¸ ´Ù¸§
+				int Weight_index = c * K + k;  // Torchï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ indexï¿½ï¿½ ï¿½Ù¸ï¿½
 				float s = Input[Input_index] * Weight[Weight_index];
 				sum += s;
 			}
@@ -90,8 +90,8 @@ std::vector<float> Dense_TF(std::vector<float> Input,
 	return Output;
 }
 
-std::vector<float> ReluDense_TF(std::vector<float> Input,
-	std::vector<float> Weight, std::vector<float> Bias)
+std::vector<float> ReluDense_TF(const std::vector<float>& Input,
+	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
 	int C = (int)Weight.size() / K;
@@ -120,7 +120,7 @@ std::vector<float> ReluDense_TF(std::vector<float> Input,
 	return Output;
 }
 
-std::vector<float> SoftmaxV2(std::vector<float> Tensor, int Classes)
+std::vector<float> SoftmaxV2(const std::vector<float>& Tensor, int Classes)
 {
 	int C = Classes;
 	int OutputSize = (int)Tensor.size();
@@ -141,7 +141,7 @@ std::vector<float> SoftmaxV2(std::vector<float> Tensor, int Classes)
 	return Output;
 }
 
-std::vector<float> SoftmaxV3(std::vector<float> Tensor, int Classes)
+std::vector<float> SoftmaxV3(const std::vector<float>& Tensor, int Classes)
 {
 	int C = Classes;
 	int OutputSize = (int)Tensor.size();
@@ -170,7 +170,7 @@ std::vector<float> SoftmaxV3(std::vector<float> Tensor, int Classes)
 }
 
 
-float ExponentialSum(std::vector<float> Tensor, int Classes)
+float ExponentialSum(const std::vector<float>& Tensor, int Classes)
 {
 	int C = Classes;
 
@@ -184,7 +184,7 @@ float ExponentialSum(std::vector<float> Tensor, int Classes)
 	return sum;
 }
 
-std::vector<float> Softmax(std::vector<float> Tensor, int Classes)
+std::vector<float> Softmax(const std::vector<float>& Tensor, int Classes)
 {
 	int C = Classes;
 	int OutputSize = (int)Tensor.size();
@@ -200,7 +200,7 @@ std::vector<float> Softmax(std::vector<float> Tensor, int Classes)
 }
 
 
-std::vector<float> LoadData(std::string name)
+std::vector<float> LoadData(const std::string& name)
 {
 	std::ifstream input(name, std::ios::in | std::ios::binary);
 	if (!(input.is_open()))
@@ -227,7 +227,7 @@ std::vector<float> LoadData(std::string name)
 //PyTorch Dense Weight shape --> (out_channel, in_channel)
 int main()
 {
-	const int N = 100; // 0 ~ N¹øÂ°ÀÇ mnist test ÀÌ¹ÌÁö
+	const int N = 100; // 0 ~ Nï¿½ï¿½Â°ï¿½ï¿½ mnist test ï¿½Ì¹ï¿½ï¿½ï¿½
 
 	std::vector<float> W1{ LoadData("weight_torch/W1_torch.wts") }; // 784 * 16
 	std::vector<float> b1{ LoadData("weight_torch/b1_torch.wts") }; // 16
@@ -247,7 +247,7 @@ int main()
 	std::vector<float> W6{ LoadData("weight_torch/W6_torch.wts") }; // 16 * 10
 	std::vector<float> b6{ LoadData("weight_torch/b6_torch.wts") }; // 10
 
-	std::vector<float> image{ LoadData("data/mnist_test_float32.bin") }; // 10000°³ÀÇ mnist test ÀÌ¹ÌÁö
+	std::vector<float> image{ LoadData("data/mnist_test_float32.bin") }; // 10000ï¿½ï¿½ï¿½ï¿½ mnist test ï¿½Ì¹ï¿½ï¿½ï¿½
 
 	auto N_image = std::vector<float>(image.begin(), image.begin() + 784 * N);
 
@@ -263,7 +263,7 @@ int main()
 	std::vector<float> dense6 = Dense(relu_dense5, W6, b6);
 	std::vector<float> logit = SoftmaxV2(dense6, 10);
 
-	std::vector<float> logit_origin{ LoadData("value_torch/logit_torch.layers") }; //logit ºñ±³
+	std::vector<float> logit_origin{ LoadData("value_torch/logit_torch.layers") }; //logit ï¿½ï¿½
 
 	for (int i = 0; i < 10 * N; i++) {
 		if (i % 10 == 0 && i != 0) {
@@ -273,7 +273,7 @@ int main()
 			logit[i], logit_origin[i], fabsf(logit[i] - logit_origin[i]));
 	}
 
-	std::vector<float> relu_dense4_origin{ LoadData("value_torch/relu_dense4_torch.layers") }; //Áß°£ ·¹ÀÌ¾îµéµµ ºñ±³
+	std::vector<float> relu_dense4_origin{ LoadData("value_torch/relu_dense4_torch.layers") }; //ï¿½ß°ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½éµµ ï¿½ï¿½
 
 	for (int i = 0; i < 16 * N; i++) {
 		if (i % 10 == 0 && i != 0) {
