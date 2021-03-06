@@ -251,7 +251,8 @@ int main()
 
 	auto N_image = std::vector<float>(image.begin(), image.begin() + 784 * N);
 
-	for (int i = 0; i < 784 * N; ++i) {
+	for (int i = 0; i < 784 * N; i++) 
+	{
 		N_image[i] /= (float)255.0f;
 	}
 
