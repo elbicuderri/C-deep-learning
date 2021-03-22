@@ -10,7 +10,7 @@ void Relu(std::vector<float>& input)
 	}
 }
 
-std::vector<float> add_layer(const std::vector<float> input_1, const std::vector<float> input_2)
+std::vector<float> add_layer(const std::vector<float>& input_1, const std::vector<float>& input_2)
 {
 	//assert (input_1.size() == input_2.size());
 
@@ -25,9 +25,9 @@ std::vector<float> add_layer(const std::vector<float> input_1, const std::vector
 	return output;
 }
 
-std::vector<float> Dense(const std::vector<float> Input,
-	const std::vector<float> Weight,
-	const std::vector<float> Bias,
+std::vector<float> Dense(const std::vector<float>& Input,
+	const std::vector<float>& Weight,
+	const std::vector<float>& Bias,
 	int N,
 	int C,
 	int K)
@@ -54,22 +54,22 @@ std::vector<float> Dense(const std::vector<float> Input,
 }
 
 std::vector<float> conv_bn_fusion(
-	std::vector<float> input,
-	std::vector<float> kernel,
-	std::vector<float> gamma,
-	std::vector<float> beta,
-	std::vector<float> mean,
-	std::vector<float> variance,
-	const float& epsilon,
-	const int& N,
-	const int& C,
-	const int& K,
-	const int& H,
-	const int& W,
-	const int& kH,
-	const int& kW,
-	const int& padding,
-	const int& stride)
+	const std::vector<float>& input,
+	const std::vector<float>& kernel,
+	const std::vector<float>& gamma,
+	const std::vector<float>& beta,
+	const std::vector<float>& mean,
+	const std::vector<float>& variance,
+	float epsilon,
+	int N,
+	int C,
+	int K,
+	int H,
+	int W,
+	int kH,
+	int kW,
+	int padding,
+	int stride)
 {
 	// N : batch
 	// C : in_channel
@@ -148,22 +148,22 @@ std::vector<float> conv_bn_fusion(
 }
 
 std::vector<float> conv_bn_fusion_relu(
-	std::vector<float> input,
-	std::vector<float> kernel,
-	std::vector<float> gamma,
-	std::vector<float> beta,
-	std::vector<float> mean,
-	std::vector<float> variance,
-	const float& epsilon,
-	const int& N,
-	const int& C,
-	const int& K,
-	const int& H,
-	const int& W,
-	const int& kH,
-	const int& kW,
-	const int& padding,
-	const int& stride)
+	const std::vector<float>& input,
+	const std::vector<float>& kernel,
+	const std::vector<float>& gamma,
+	const std::vector<float>& beta,
+	const std::vector<float>& mean,
+	const std::vector<float>& variance,
+	float epsilon,
+	int N,
+	int C,
+	int K,
+	int H,
+	int W,
+	int kH,
+	int kW,
+	int padding,
+	int stride)
 {
 	// N : batch
 	// C : in_channel
@@ -237,15 +237,15 @@ std::vector<float> conv_bn_fusion_relu(
 
 }
 
-std::vector<float> avg_pool(std::vector<float> input,
-	const int& N,
-	const int& C,
-	const int& H,
-	const int& W,
-	const int& kH,
-	const int& kW,
-	const int& padding,
-	const int& stride)
+std::vector<float> avg_pool(const std::vector<float>& input,
+	int N,
+	int C,
+	int H,
+	int W,
+	int kH,
+	int kW,
+	int padding,
+	int stride)
 {
 
 	int P = ((H + 2 * padding - kH) / stride) + 1;
@@ -293,8 +293,7 @@ std::vector<float> avg_pool(std::vector<float> input,
 }
 
 
-
-std::vector<float> log_softmax(std::vector<float> input, const int& N, const int& C)
+std::vector<float> log_softmax(const std::vector<float>& input, int N, int C)
 {
 	int Length = (int)input.size();
 	std::vector<float> output(Length);

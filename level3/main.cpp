@@ -12,9 +12,9 @@
 void load_data(float* output, const char* name, int size);
 
 template<typename T>
-std::vector<T> ReadData(const std::string file_name);
+std::vector<T> ReadData(const std::string& file_name);
 
-std::vector<float> image_normalization(const float* input, int& batch, int& image_size, const float& constant);
+std::vector<float>& image_normalization(const float* input, int batch, int image_size, float&& constant);
 
 int main()
 {
@@ -154,7 +154,7 @@ int main()
 
 
 template<typename T>
-std::vector<T> ReadData(std::string file_name)
+std::vector<T> ReadData(const std::string& file_name)
 {
 	std::ifstream input(file_name, std::ios::in | std::ios::binary);
 	if (!(input.is_open()))
@@ -172,7 +172,7 @@ std::vector<T> ReadData(std::string file_name)
 	{
 		T value;
 		input.read((char*)&value, sizeof(T));
-		data.emplace_back(value);
+		data.push_back(value);
 	}
 
 	return data;
@@ -198,7 +198,7 @@ void load_data(float* output, const char* name, int size)
 	fclose(pFile);
 }
 
-std::vector<float> image_normalization(const float* input, int& batch, int& image_size, const float& constant)
+std::vector<float>& image_normalization(const float* input, int batch, int image_size, float&& constant)
 {
 	std::vector<float> output(batch * image_size);
 

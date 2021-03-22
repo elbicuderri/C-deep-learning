@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 
-std::vector<float> Dense(const std::vector<float>& Input,
+std::vector<float>& Dense(const std::vector<float>& Input,
 	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
@@ -31,7 +31,7 @@ std::vector<float> Dense(const std::vector<float>& Input,
 }
 
 
-std::vector<float> ReluDense(const std::vector<float>& Input,
+std::vector<float>& ReluDense(const std::vector<float>& Input,
 	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
@@ -62,7 +62,7 @@ std::vector<float> ReluDense(const std::vector<float>& Input,
 }
 
 
-std::vector<float> Dense_TF(const std::vector<float>& Input,
+std::vector<float>& Dense_TF(const std::vector<float>& Input,
 	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
@@ -90,7 +90,7 @@ std::vector<float> Dense_TF(const std::vector<float>& Input,
 	return Output;
 }
 
-std::vector<float> ReluDense_TF(const std::vector<float>& Input,
+std::vector<float>& ReluDense_TF(const std::vector<float>& Input,
 	const std::vector<float>& Weight, const std::vector<float>& Bias)
 {
 	int K = (int)Bias.size();
@@ -120,7 +120,7 @@ std::vector<float> ReluDense_TF(const std::vector<float>& Input,
 	return Output;
 }
 
-std::vector<float> SoftmaxV2(const std::vector<float>& Tensor, int Classes)
+std::vector<float>& SoftmaxV2(const std::vector<float>& Tensor, int Classes)
 {
 	int C = Classes;
 	int OutputSize = (int)Tensor.size();
@@ -141,7 +141,7 @@ std::vector<float> SoftmaxV2(const std::vector<float>& Tensor, int Classes)
 	return Output;
 }
 
-std::vector<float> SoftmaxV3(const std::vector<float>& Tensor, int Classes)
+std::vector<float>& SoftmaxV3(const std::vector<float>& Tensor, int Classes)
 {
 	int C = Classes;
 	int OutputSize = (int)Tensor.size();
@@ -184,7 +184,7 @@ float ExponentialSum(const std::vector<float>& Tensor, int Classes)
 	return sum;
 }
 
-std::vector<float> Softmax(const std::vector<float>& Tensor, int Classes)
+std::vector<float>& Softmax(const std::vector<float>& Tensor, int Classes)
 {
 	int C = Classes;
 	int OutputSize = (int)Tensor.size();
@@ -200,7 +200,7 @@ std::vector<float> Softmax(const std::vector<float>& Tensor, int Classes)
 }
 
 
-std::vector<float> LoadData(const std::string& name)
+std::vector<float>& LoadData(const std::string& name)
 {
 	std::ifstream input(name, std::ios::in | std::ios::binary);
 	if (!(input.is_open()))
